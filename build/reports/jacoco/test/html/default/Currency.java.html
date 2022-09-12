@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Currency.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">asm2412</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Currency.java</span></div><h1>Currency.java</h1><pre class="source lang-java linenums">import java.util.*;
+
+public class Currency {
+    private String name;
+
+<span class="fc" id="L6">    private Map&lt;String, ArrayList&lt;String[]&gt;&gt; exchangeRateList = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L8">    public Currency(String name) {</span>
+<span class="fc" id="L9">        this.name = name;</span>
+<span class="fc" id="L10">    }</span>
+
+    public String getName() {
+<span class="fc" id="L13">        return name;</span>
+    }
+
+    public Map&lt;String, ArrayList&lt;String[]&gt;&gt; getExchangeRateList() {
+<span class="nc" id="L17">        return exchangeRateList;</span>
+    }
+
+    public double getExchangeRate(String name) {
+<span class="fc" id="L21">        double exchangeRate = 1;</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        for (String key : exchangeRateList.keySet()) {</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">            if (Objects.equals(key, name)) {</span>
+<span class="fc" id="L24">                exchangeRate = Double.parseDouble(exchangeRateList.get(name).get(0)[1]);</span>
+            }
+<span class="fc" id="L26">        }</span>
+<span class="fc" id="L27">        return exchangeRate;</span>
+    }
+
+    public void addExchangeRate(String name, String rate, String date) {
+<span class="fc" id="L31">        ArrayList&lt;String[]&gt; dateAndRateList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L32">        dateAndRateList.add(new String[]{date, rate});</span>
+<span class="fc" id="L33">        exchangeRateList.put(name, dateAndRateList);</span>
+<span class="fc" id="L34">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

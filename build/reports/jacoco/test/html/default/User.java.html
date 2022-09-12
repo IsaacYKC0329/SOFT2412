@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">asm2412</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
+
+<span class="fc" id="L6">public abstract class User {</span>
+<span class="fc" id="L7">    protected static ArrayList&lt;Currency&gt; currencyList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L8">    protected Currency[] popularCurrencies = new Currency[4];</span>
+
+    protected void moneyExchange(String c1, String c2, String number) {
+<span class="nc bnc" id="L11" title="All 2 branches missed.">        for (Currency c : currencyList) {</span>
+<span class="nc bnc" id="L12" title="All 2 branches missed.">            if (Objects.equals(c.getName(), c1)) {</span>
+<span class="nc bnc" id="L13" title="All 2 branches missed.">                if (c.getExchangeRateList().containsKey(c2)) {</span>
+<span class="nc" id="L14">                    double rate = Double.parseDouble(c.getExchangeRateList().get(c2).get(0)[1]);</span>
+<span class="nc" id="L15">                    double result = Double.parseDouble(number)*rate;</span>
+<span class="nc" id="L16">                    System.out.println(&quot;You have changed &quot;+c2+result);</span>
+<span class="nc" id="L17">                } else {</span>
+<span class="nc" id="L18">                    System.out.println(&quot;No such a currency, please add it into system&quot;);</span>
+                }
+            }
+<span class="nc" id="L21">        }</span>
+<span class="nc" id="L22">    }</span>
+
+    protected String strRightPadding(String str) {
+<span class="nc" id="L25">        return String.format(&quot;%1$-&quot; + 8 + &quot;s&quot;, str);</span>
+    }
+    protected String doubleRightPadding(double value) {
+<span class="nc" id="L28">        return String.format(&quot;%1$-&quot; + 8 + &quot;.2f&quot;, value);</span>
+    }
+
+    protected void showPopular() {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (popularCurrencies.length!=4) {</span>
+<span class="nc" id="L33">            System.out.println(&quot;Admin should pick 4 currency first&quot;);</span>
+        } else {
+<span class="nc" id="L35">            Currency c1 = popularCurrencies[0];</span>
+<span class="nc" id="L36">            Currency c2 = popularCurrencies[1];</span>
+<span class="nc" id="L37">            Currency c3 = popularCurrencies[2];</span>
+<span class="nc" id="L38">            Currency c4 = popularCurrencies[3];</span>
+<span class="nc" id="L39">            String c1str = strRightPadding(c1.getName());</span>
+<span class="nc" id="L40">            String c2str = strRightPadding(c2.getName());</span>
+<span class="nc" id="L41">            String c3str = strRightPadding(c3.getName());</span>
+<span class="nc" id="L42">            String c4str = strRightPadding(c4.getName());</span>
+<span class="nc" id="L43">            String c1toC2 = doubleRightPadding(c1.getExchangeRate(c2.getName()));</span>
+<span class="nc" id="L44">            String c1toC3 = doubleRightPadding(c1.getExchangeRate(c3.getName()));</span>
+<span class="nc" id="L45">            String c1toC4 = doubleRightPadding(c1.getExchangeRate(c4.getName()));</span>
+<span class="nc" id="L46">            String c2toC1 = doubleRightPadding(c2.getExchangeRate(c1.getName()));</span>
+<span class="nc" id="L47">            String c2toC3 = doubleRightPadding(c2.getExchangeRate(c3.getName()));</span>
+<span class="nc" id="L48">            String c2toC4 = doubleRightPadding(c2.getExchangeRate(c4.getName()));</span>
+<span class="nc" id="L49">            String c3toC1 = doubleRightPadding(c3.getExchangeRate(c1.getName()));</span>
+<span class="nc" id="L50">            String c3toC2 = doubleRightPadding(c3.getExchangeRate(c2.getName()));</span>
+<span class="nc" id="L51">            String c3toC4 = doubleRightPadding(c3.getExchangeRate(c4.getName()));</span>
+<span class="nc" id="L52">            String c4toC1 = doubleRightPadding(c4.getExchangeRate(c1.getName()));</span>
+<span class="nc" id="L53">            String c4toC2 = doubleRightPadding(c4.getExchangeRate(c2.getName()));</span>
+<span class="nc" id="L54">            String c4toC3 = doubleRightPadding(c4.getExchangeRate(c3.getName()));</span>
+
+<span class="nc" id="L56">            System.out.printf(&quot;&quot;&quot;</span>
+               ______________________________________________
+               |From/To |%s|%s|%s|%s|
+               |%s|-       |%s|%s|%s|
+               |%s|%s|-       |%s|%s|
+               |%s|%s|%s|-       |%s|
+               |%s|%s|%s|%s|-       |
+               ----------------------------------------------
+                &quot;&quot;&quot;,c1str,c2str,c3str,c4str,c1str,c1toC2,c1toC3,c1toC4,c2str,c2toC1,c2toC3,c2toC4,c3str,c3toC1,c3toC2,c3toC4,c4str,c4toC1,c4toC2,c4toC3);
+
+        }
+<span class="nc" id="L67">    }</span>
+
+    protected void printList(String startTime, String endTime, Currency c1, Currency c2) {
+
+<span class="nc" id="L71">        ArrayList&lt;String[]&gt; c2HistoryRates = c1.getExchangeRateList().get(c2.getName());</span>
+<span class="nc" id="L72">        int startIndex = 0;</span>
+<span class="nc" id="L73">        int endIndex = 0;</span>
+<span class="nc" id="L74">        boolean start = false;</span>
+<span class="nc" id="L75">        boolean end = false;</span>
+<span class="nc" id="L76">        double sum = 0;</span>
+        double average;
+        double median;
+        double standardDeviation;
+<span class="nc" id="L80">        double max = Double.NEGATIVE_INFINITY;</span>
+<span class="nc" id="L81">        double min = Double.POSITIVE_INFINITY;</span>
+<span class="nc" id="L82">        sort(c2HistoryRates);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for(int i=0; i&lt;c2HistoryRates.size(); i++){</span>
+<span class="nc" id="L84">            String Date = c2HistoryRates.get(i)[0];</span>
+<span class="nc" id="L85">            double Rate = Double.parseDouble(c2HistoryRates.get(i)[1]);</span>
+
+            // find the index of start date and end date
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            if(Date.equals(startTime)){</span>
+<span class="nc" id="L89">                startIndex = i;</span>
+<span class="nc" id="L90">                start = true;</span>
+            }
+<span class="nc bnc" id="L92" title="All 2 branches missed.">            else if(Date.equals(endTime)){</span>
+<span class="nc" id="L93">                endIndex = i;</span>
+<span class="nc" id="L94">                end = true;</span>
+            }
+
+            // start printing
+<span class="nc bnc" id="L98" title="All 2 branches missed.">            if(start){</span>
+                //calculate the sum for average
+<span class="nc" id="L100">                sum+=Rate;</span>
+
+                // calculate the max value
+<span class="nc bnc" id="L103" title="All 2 branches missed.">                if(Rate &gt; max){</span>
+<span class="nc" id="L104">                    max = Rate;</span>
+                }
+                // calculate the min value
+<span class="nc bnc" id="L107" title="All 2 branches missed.">                if(Rate &lt; min){</span>
+<span class="nc" id="L108">                    min = Rate;</span>
+                }
+
+                //print out every history rate between specific time
+<span class="nc" id="L112">                System.out.println(Date + &quot;: &quot; + Rate);</span>
+
+                //stop printing
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                if(end){</span>
+<span class="nc" id="L116">                    start = false;</span>
+                }
+            }
+        }
+        // calculate the average and median
+<span class="nc" id="L121">        average = sum / (endIndex+1 - startIndex);</span>
+<span class="nc" id="L122">        median = Double.parseDouble(c2HistoryRates.get((endIndex+startIndex)/2)[1]);</span>
+
+        // calculate standard deviation
+<span class="nc" id="L125">        double[] values = new double[endIndex+1 - startIndex];</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        for(int i = startIndex, j = 0; i &lt; endIndex+1; i++, j++){</span>
+<span class="nc" id="L127">            double Rate = Double.parseDouble(c2HistoryRates.get(i)[1]);</span>
+<span class="nc" id="L128">            values[j] = Math.pow((Rate - average), 2);</span>
+        }
+<span class="nc" id="L130">        double averageOfSumOfValue = Arrays.stream(values).sum()/(endIndex+1 - startIndex);</span>
+<span class="nc" id="L131">        standardDeviation = Math.sqrt(averageOfSumOfValue);</span>
+<span class="nc" id="L132">        System.out.printf(&quot;&quot;&quot;</span>
+                average is: %f
+                median is: %f
+                maximum is: %f
+                minimum is: %f
+                standard deviation is: %f
+<span class="nc" id="L138">                &quot;&quot;&quot;, average, median, max, min, standardDeviation);</span>
+<span class="nc" id="L139">    }</span>
+
+    protected abstract void addCurrency(String name);
+    protected abstract void changeRate(String c1,  String c2, String rate, String date);
+    protected abstract void choosePopular(String c1, String c2, String c3, String c4);
+
+    protected Currency findCurrency(String c){
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        for (Currency currency : currencyList) {</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">            if (c.equals(currency.getName())) {</span>
+<span class="nc" id="L148">                return currency;</span>
+            }
+<span class="nc" id="L150">        }</span>
+<span class="nc" id="L151">        return null;</span>
+    }
+
+    protected void sort(ArrayList&lt;String[]&gt; arr){
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        for(int i=0; i&lt;arr.size()-1; i++) {</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">            for(int j=i+1; j&lt;arr.size(); j++) {</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                if(arr.get(i)[0].compareTo(arr.get(j)[0])&lt;0) {</span>
+<span class="nc" id="L158">                    Collections.swap(arr, i, j);</span>
+                }
+            }
+        }
+<span class="nc" id="L162">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

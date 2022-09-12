@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Admin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">asm2412</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Admin.java</span></div><h1>Admin.java</h1><pre class="source lang-java linenums">import java.util.Objects;
+
+<span class="nc" id="L3">public class Admin extends User{</span>
+    protected void addCurrency(String name){
+<span class="nc" id="L5">        Currency c1 = new Currency(name);</span>
+<span class="nc" id="L6">        currencyList.add(c1);</span>
+<span class="nc" id="L7">        System.out.println(name + &quot; has been added!&quot;);</span>
+<span class="nc" id="L8">    }</span>
+
+    protected void changeRate(String c1, String c2, String date, String rate){
+<span class="nc bnc" id="L11" title="All 2 branches missed.">        for (Currency c : currencyList) {</span>
+<span class="nc bnc" id="L12" title="All 2 branches missed.">            if (Objects.equals(c.getName(), c1)) {</span>
+<span class="nc bnc" id="L13" title="All 2 branches missed.">                if (c.getExchangeRateList().containsKey(c2)) {</span>
+<span class="nc" id="L14">                    c.getExchangeRateList().get(c2).add(new String[] {date, rate});</span>
+<span class="nc" id="L15">                    sort(c.getExchangeRateList().get(c2));</span>
+                } else {
+<span class="nc" id="L17">                    System.out.println(&quot;No such a currency, please add it into system&quot;);</span>
+                }
+            }
+<span class="nc" id="L20">        }</span>
+<span class="nc" id="L21">    }</span>
+
+    protected void choosePopular(String c1, String c2, String c3, String c4) {
+<span class="nc" id="L24">        String[] c = new String[]{c1, c2, c3, c4};</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        for(int i = 0; i &lt; c.length; i++){</span>
+<span class="nc" id="L26">            popularCurrencies[i] = findCurrency(c[i]);</span>
+        }
+<span class="nc" id="L28">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
