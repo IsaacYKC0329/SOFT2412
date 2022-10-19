@@ -1,0 +1,118 @@
+[
+  {
+    "name": "Drinks",
+    "products": [
+      {
+        "id": "1001",
+        "name": "Mineral Water",
+        "price": 1.0,
+        "quantity": 7
+      },
+      {
+        "id": "1002",
+        "name": "Sprite",
+        "price": 2.5,
+        "quantity": 7
+      },
+      {
+        "id": "1003",
+        "name": "Coca cola",
+        "price": 2.5,
+        "quantity": 7
+      },
+      {
+        "id": "1004",
+        "name": "Pepsi",
+        "price": 2.5,
+        "quantity": 7
+      },
+      {
+        "id": "1005",
+        "name": "Juice",
+        "price": 3.0,
+        "quantity": 7
+      }
+    ]
+  },
+  {
+    "name": "Chocolates",
+    "products": [
+      {
+        "id": "2001",
+        "name": "Mars",
+        "price": 3.0,
+        "quantity": 7
+      },
+      {
+        "id": "2002",
+        "name": "M&M",
+        "price": 5.0,
+        "quantity": 7
+      },
+      {
+        "id": "2003",
+        "name": "Bounty",
+        "price": 4.0,
+        "quantity": 7
+      },
+      {
+        "id": "2004",
+        "name": "Snickers",
+        "price": 6.2,
+        "quantity": 7
+      }
+    ]
+  },
+  {
+    "name": "Chips",
+    "products": [
+      {
+        "id": "3001",
+        "name": "Smiths",
+        "price": 1.99,
+        "quantity": 7
+      },
+      {
+        "id": "3002",
+        "name": "Pringles",
+        "price": 3.98,
+        "quantity": 7
+      },
+      {
+        "id": "3003",
+        "name": "Kettle",
+        "price": 5.0,
+        "quantity": 7
+      },
+      {
+        "id": "3004",
+        "name": "Thins",
+        "price": 4.6,
+        "quantity": 7
+      }
+    ]
+  },
+  {
+    "name": "Candies",
+    "products": [
+      {
+        "id": "4001",
+        "name": "Mentos",
+        "price": 7.8,
+        "quantity": 7
+      },
+      {
+        "id": "4002",
+        "name": "Sour Patch",
+        "price": 6.0,
+        "quantity": 7
+      },
+      {
+        "id": "4003",
+        "name": "Skittles",
+        "price": 6.7,
+        "quantity": 7
+      }
+    ]
+  }
+]

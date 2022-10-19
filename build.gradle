@@ -25,13 +25,17 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
 
-    // json
+    // Use json for saving config
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    // Use jackson for parsing and formatting json
+    implementation('com.fasterxml.jackson.core:jackson-core:2.11.2')
+    implementation('com.fasterxml.jackson.core:jackson-databind:2.11.2')
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'App'
+    mainClass = 'Vending_Machine.App'
 }
 
 tasks.named('test') {
@@ -43,7 +47,7 @@ tasks.named('test') {
 jacocoTestReport {
     reports {
         html.enabled = true
-        csv.enabled = true
+        csv.enabled = true 
     }
 }
 
