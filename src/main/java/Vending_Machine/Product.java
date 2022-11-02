@@ -6,6 +6,7 @@ public class Product {
     private Category category;
     private double price;
     private int quantity;
+    private int quantitySold;
 
     public String getId() {
         return id;
@@ -47,11 +48,20 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(String id, String name, Category category, double price, int quantity) {
+    public int getQuantitySold() {
+        return quantitySold;
+    }
+
+    public void setQuantitySold(int quantitySold) {
+        this.quantitySold = this.quantitySold + quantitySold;
+    }
+
+    public Product(String id, String name, Category category, double price, int quantity, int quantitySold) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
+        this.quantitySold = quantitySold;
     }
 }

@@ -10,16 +10,15 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class PaymentSystem {
     // the hashmap key is the denomination, the value is the quantity.
     private final HashMap<String, Integer> cashInMachine = new HashMap<>();
     private final HashMap<String, String> cardInMachine = new HashMap<>();
-
-    // saved account
-    private String[] savedAccount = new String[2];
 
     // initialize the cash amount in vending machine
     public void initializeCash(String denomination, int quantity) {
@@ -75,12 +74,9 @@ public class PaymentSystem {
     }
 
     // check if the card owner and card number is in the machine
-    public boolean checkCard(Boolean save, String cardName, String cardNumber) {
+    public boolean checkCard(String cardName, String cardNumber) {
         if (cardInMachine.containsKey(cardName)) {
 
-            if(save){
-                return true;
-            }
             if (cardInMachine.get(cardName).equals(cardNumber)) {
                 return true;
             }
@@ -93,17 +89,12 @@ public class PaymentSystem {
         return false;
     }
 
-    // save account in system
-    public void saveAccount(Boolean save, String cardName){
-        if (save){
-            savedAccount[0] = cardName;
-            savedAccount[1] = cardInMachine.get(cardName);
-        }
-    }
-
 
     // Give customers change by check the payment amount and the price of the product
-    public HashMap<String, Integer> giveChange(double paymentAmount, double price) {
+    public HashMap<String, Integer> giveChange(double doublePaymentAmount, double doublePrice) {
+
+        BigDecimal paymentAmount = BigDecimal.valueOf(doublePaymentAmount);
+        BigDecimal price = BigDecimal.valueOf(doublePrice);
 
         boolean TransactionContinued = true;
         HashMap<String, Integer> actualChanges = new HashMap<>();
@@ -112,7 +103,8 @@ public class PaymentSystem {
         while (TransactionContinued){
 
             HashMap<String, Integer> changes = new HashMap<>();
-            double change = paymentAmount - price;
+
+            double change = paymentAmount.subtract(price).doubleValue();
 
             // payment amount not enough
             if (change < 0) {
@@ -130,7 +122,7 @@ public class PaymentSystem {
 
                 // add amount to the existing payment
                 else{
-                    paymentAmount += nextCommand;
+                    paymentAmount = paymentAmount.add(BigDecimal.valueOf(nextCommand));
                 }
             }
 
@@ -164,7 +156,7 @@ public class PaymentSystem {
                             else{
                                 changes.put(denomination, quantity);
                             }
-                            change -= Double.parseDouble(denomination) * quantity;
+                            change = BigDecimal.valueOf(change).subtract(BigDecimal.valueOf(Double.parseDouble(denomination) * quantity)).doubleValue();
                         }
                     }
                 }
@@ -184,17 +176,17 @@ public class PaymentSystem {
 
                     // input new payment amount
                     else {
-                        paymentAmount = nextCommand;
+                        paymentAmount = BigDecimal.valueOf(nextCommand);
                     }
                 }
 
                 // output the change to customer
                 else {
-                    System.out.println("payment accepted");
-                    System.out.println("The change is:");
-                    for (String denomination : changes.keySet()) {
-                        System.out.println(denomination+ ": " + changes.get(denomination));
-                    }
+//                    System.out.println("payment accepted");
+////                    System.out.println("The change is:");
+////                    for (String denomination : changes.keySet()) {
+////                        System.out.println(denomination+ ": " + changes.get(denomination));
+//                    }
                     actualChanges = changes;
                     updateJSONFile();
                     TransactionContinued = false;
@@ -202,6 +194,10 @@ public class PaymentSystem {
             }
         }
         return actualChanges;
+    }
+
+    public HashMap<String, Integer> getCashInMachine() {
+        return cashInMachine;
     }
 
     // ask user to input the next command
@@ -224,7 +220,7 @@ public class PaymentSystem {
                         2. input negative number to cancel transaction
                         """);
         }
-
+        System.out.print("Input your command: ");
         String nextCommand = new Scanner(System.in).nextLine();
 
         // if the command is not a number, ask user to input again
@@ -257,6 +253,10 @@ public class PaymentSystem {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public HashMap<String, String> getCardInMachine() {
+        return cardInMachine;
     }
 }
 

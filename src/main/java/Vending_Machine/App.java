@@ -9,6 +9,7 @@ public class App {
 
     public static void main(String[] args) {
         VendingMachine vendingMachine = new VendingMachine();
+        vendingMachine.showMenu();
         // User Login Interface
         vendingMachine.userLogIn();
         // Main Menu
@@ -23,11 +24,29 @@ public class App {
             if (firstCommand.equalsIgnoreCase("HELP")) {
                 System.out.println();
                 System.out.println("BUY: buy some items");
+                System.out.println("EDIT: fill or modify something in the vending machine");
+                System.out.println("REPORT: show information or records of vending machines");
                 System.out.println("EXIT: exit vending machine");
                 System.out.println("HELP: print this manual");
                 System.out.println();
             } else if (firstCommand.equalsIgnoreCase("BUY")) {
+                //vendingMachine.idleTimer();
                 vendingMachine.transaction();
+            } else if (firstCommand.equalsIgnoreCase("EDIT")) {
+                // Check if user has admin role
+                if (vendingMachine.getCurrentUser().getRole().equals("Seller")||vendingMachine.getCurrentUser().getRole().equals("Cashier")||vendingMachine.getCurrentUser().getRole().equals("Owner")){
+                    vendingMachine.edit();
+                } else {
+                    System.out.println("Your do not have access to edit anything");
+                }
+                vendingMachine.edit();
+            } else if (firstCommand.equalsIgnoreCase("REPORT")) {
+                // Check if user has admin role
+                if (vendingMachine.getCurrentUser().getRole().equals("Seller")||vendingMachine.getCurrentUser().getRole().equals("Cashier")||vendingMachine.getCurrentUser().getRole().equals("Owner")){
+                    vendingMachine.report();
+                } else {
+                    System.out.println("Your do not have access to generate any reports");
+                }
             } else if (firstCommand.equalsIgnoreCase("EXIT")) {
                 System.exit(0);
             } else {
